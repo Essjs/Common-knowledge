@@ -1,0 +1,18 @@
+使用router-view时，如果在相同路由之间跳转，默认在跳转路由时会采用缓存策略,并不会刷新当前路由组件。即mounted,beforeDestory等钩子函数并不会触发。
+如果想强制刷新，可以在根路由上为其分配一个唯一key。采用$route.fullpath作为其唯一key。这样vue就回认为内部路由每个都是不同的路由，在跳转时便会强
+制刷新组件
+
+#给路由添加 :key值
+<template>
+      <router-view :key="$route.fullpath+$route.query.plan" />  
+</template>
+<script>
+this.$router.push({
+  path:"xxx",
+  query: { plan: Date.now().toString()
+})
+</script>
+
+这样就可以实现相同路由刷新了
+
+  
